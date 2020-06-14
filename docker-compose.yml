@@ -1,0 +1,29 @@
+version: '3'
+services:
+  #DBの設定
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: XXXXXXXXXX
+      MYSQL_DATABASE: XXXXXXXXXX
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    ports:
+      - "3306:3306"
+    restart: always
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  #railの設定
+  web:
+    build: .
+    command: rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/XXXXXXXXXX
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+#TODO データボリューム
+volumes:
+  mysql_data: {}
