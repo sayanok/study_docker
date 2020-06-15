@@ -12,6 +12,11 @@ services:
     restart: always
     volumes:
       - mysql_data:/var/lib/mysql
+  redis:
+    image: redis:latest
+    environment:
+      REDIS_URL: redis://redis:6379
+    command: redis-server --appendonly yes
 
   #railの設定
   web:
